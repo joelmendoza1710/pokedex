@@ -1,4 +1,4 @@
-﻿# 🚀 Guía de Despliegue: PokeDex en Azure Static Web Apps con CI/CD y Hardening de Seguridad
+# 🚀 Guía de Despliegue: PokeDex en Azure Static Web Apps con CI/CD y Hardening de Seguridad
 
 ![Azure Static Web Apps](https://img.shields.io/badge/Azure_Static_Web_Apps-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)
 ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)
@@ -9,16 +9,16 @@
 
 ## 📋 Metadatos del Proyecto
 * **Institución:** Fundación Universitaria Tecnológico Comfenalco
-* **Estudiante:** Joel Mendoza (`jmendoza5771@tecnocomfenalco.edu.co`)
+* **Estudiante:** Joel Mendoza Arias (`joelmendozaa@tecnocomfenalco.edu.co`)
 * **Asignatura:** Sistemas Distribuidos
 * **Entregable N° 2:** `Despliegue.md` — Guía de despliegue de la solución tecnológica implementada.
 
 ---
 
 ## 📌 Enlace de la Aplicación en Producción
-* **URL Pública de Despliegue:** `https://icy-mushroom-089b3eb10.6.azurestaticapps.net` *(o URL generada por Azure SWA al crear el recurso)*
+* **URL Pública de Despliegue:** `https://icy-mushroom-089b3eb10.6.azurestaticapps.net` 
 * **Repositorio en GitHub:** `https://github.com/joelmendoza1710/pokedex`
-* **Auditoría de Seguridad en Vivo:** [Verificación en SecurityHeaders.com](https://securityheaders.com/?q=https%3A%2F%2Ficy-mushroom-089b3eb10.6.azurestaticapps.net&followRedirects=on)
+* **Auditoría de Seguridad en Vivo:** [Verificación en SecurityHeaders.com](https://securityheaders.com/?q=https%3A%2F%2Fswa-pokedex-prod.azurestaticapps.net&followRedirects=on)
 
 ---
 
@@ -81,8 +81,8 @@ Siguiendo las directrices del **Cloud Adoption Framework (CAF)** de Microsoft, s
 
 | Tipo de Recurso | Prefijo | Nombre del Recurso | Región | Entorno |
 | :--- | :--- | :--- | :--- | :--- |
-| **Grupo de Recursos** | `rg-` | `rg-pokedex-prod` | `eastus2` | `Produccion` |
-| **Static Web App** | `swa-` | `swa-pokedex-prod` | `eastus2` | `Produccion` |
+| **Grupo de Recursos** | `rg-` | `rg-pokedex-prod` | `Global` | `Produccion` |
+| **Static Web App** | `swa-` | `swa-pokedex-prod` | `Global` | `Produccion` |
 
 ### Etiquetas Aplicadas (Tags):
 ```json
@@ -90,7 +90,7 @@ Siguiendo las directrices del **Cloud Adoption Framework (CAF)** de Microsoft, s
   "Entorno": "Produccion",
   "Proyecto": "PokeDex-Cloud",
   "Asignatura": "Sistemas-Distribuidos",
-  "Propietario": "jmendoza5771@tecnocomfenalco.edu.co",
+  "Propietario": "joelmendozaa@tecnocomfenalco.edu.co",
   "GestionadoPor": "GitHub-Actions-CI-CD"
 }
 ```
@@ -109,7 +109,7 @@ El despliegue de Azure Static Web Apps puede realizarse mediante el Portal de Az
    * **Grupo de recursos:** Seleccionar `rg-pokedex-prod` (creado previamente en la fase del README).
    * **Nombre:** `swa-pokedex-prod`
    * **Tipo de plan:** `Gratis` (`Free`)
-   * **Región de Azure Functions y almacenamiento provisional:** `East US 2`
+  
 4. En la sección **Detalles de implementación** (**Deployment details**):
    * **Origen de la implementación:** Seleccionar **GitHub**.
    * Autorizar la cuenta de GitHub del estudiante.
@@ -325,41 +325,38 @@ Para optar a la puntuación de bonificación (+5 puntos extra), se ejecutaron an
 ---
 
 ### 2. Auditoría de Vulnerabilidades Web con OWASP ZAP (Zed Attack Proxy)
-Se ejecutó un **Baseline Security Scan** pasivo y activo contra el endpoint de producción para identificar debilidades en la superficie de ataque.
 
-#### Metodología de Prueba:
-* Herramienta: OWASP ZAP 2.14 / ZAP Docker Baseline Scan.
-* Comando ejecutado:
-  ```bash
-  docker run -t zaproxy/zap-stable zap-baseline.py -t https://icy-mushroom-089b3eb10.6.azurestaticapps.net -r zap-report.html
-  ```
-* Alcance: Análisis de inyecciones, fuga de encabezados de servidor, políticas de cookies y exposición de secretos.
+Se ejecutó un **Baseline Security Scan** automatizado contra el endpoint de producción:
+`https://icy-mushroom-089b3eb10.6.azurestaticapps.net/`
 
-#### Resultados de la Auditoría ZAP:
-| Nivel de Riesgo | Cantidad Detectada | Descripción |
-| :--- | :---: | :--- |
-| 🔴 **Alto (High)** | **0** | Ninguna vulnerabilidad crítica detectada. |
-| 🟠 **Medio (Medium)** | **0** | Ausencia de fallos de configuración de seguridad comunes. |
-| 🟡 **Bajo (Low)** | **0** | Cabeceras de seguridad y enrutamiento completamente mitigados. |
-| 🔵 **Informativo (Info)** | **2** | Timestamps de caché de recursos estáticos (comportamiento normal de CDN). |
+* **Herramienta:** OWASP ZAP (Docker Container: `zaproxy/zap-stable`)
+* **Comando:** `docker run --rm -v "${PWD}:/zap/wrk/:rw" -t zaproxy/zap-stable zap-baseline.py -t https://icy-mushroom-089b3eb10.6.azurestaticapps.net/ -r zap-report.html -I`
+* **Archivo de Informe:** `zap-report.html` (disponible en la raíz del repositorio).
 
-* **Conclusión ZAP:** La aplicación cumple satisfactoriamente los estándares del **OWASP Top 10**, mitigando riesgos de XSS, CSRF e inyecciones a través del navegador.
+#### Resumen de Métricas ZAP:
+* 🔴 **Vulnerabilidades Críticas (High):** 0
+* 🟠 **Vulnerabilidades Medias (Medium):** 0
+* 🟡 **Vulnerabilidades Bajas (Low):** 0
+* 🟢 **Reglas de Seguridad Superadas (PASS):** 62 verificaciones exitosas (incluyendo HSTS, Anti-Clickjacking, CSP, X-Content-Type-Options y Permissions-Policy).
+* 🔵 **Advertencias Informativas (Informational):** 6 (Directivas estándar de almacenamiento en caché de la CDN y estilos emulados de Angular).
+
+**Conclusión del Análisis:** La arquitectura Serverless desacoplada junto con el archivo de configuración perimetral `staticwebapp.config.json` garantiza el cumplimiento total de los estándares del **OWASP Top 10**.
 
 ---
 
 ### 3. Auditoría de Transporte Seguro con Qualys SSL Labs
 Se analizó la infraestructura de cifrado y el certificado del servidor mediante la suite **Qualys SSL Labs SSL Server Test**.
 
-* **Enlace de Prueba:** `https://www.ssllabs.com/ssltest/analyze.html?d=icy-mushroom-089b3eb10.6.azurestaticapps.net`
-* **Calificación Obtenida:** **A**
+* **Enlace de Prueba:** `**`https://www.ssllabs.com/ssltest/analyze.html?d=icy-mushroom-089b3eb10.6.azurestaticapps.net`**`
+* **Calificación Obtenida:** **A+**
 * **Detalles de la Configuración TLS:**
   * **Protocolos Soportados:** TLS 1.3 (preferido) y TLS 1.2. Protocolos obsoletos (SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1) totalmente deshabilitados por Azure.
   * **Cifrado (Cipher Suites):** Suites robustas con soporte de *Forward Secrecy* (PFS):
     - `TLS_AES_256_GCM_SHA384` (256 bits)
-    - `TLS_CHACHA20_POLY1305_SHA256` (256 bits)
     - `TLS_AES_128_GCM_SHA256` (128 bits)
-    - `ECDHE-RSA-AES256-GCM-SHA384`
-  * **Certificado Digital:** Emitido por **Microsoft Azure TLS Issuing CA**, algoritmo de firma `SHA256withRSA`, longitud de clave 2048 bits con OCSP Stapling activo.
+    - `TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384` (256 bits)
+    - `TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256`
+  * **Certificado Digital:** Emitido por ** Microsoft TLS G2 RSA CA OCSP 04**, algoritmo de firma `SHA384withRSA`, longitud de clave 2048 bits con OCSP Stapling activo.
 
 ---
 
@@ -385,4 +382,3 @@ El despliegue de la solución **PokeDex** en **Azure Static Web Apps** implement
 1. **Automatización Total:** Cualquier cambio subido al repositorio activa el pipeline de CI/CD que valida, construye y entrega la versión en producción en menos de 2 minutos.
 2. **Seguridad Perimetral Robusta:** La incorporación de `staticwebapp.config.json` protege a los usuarios y asegura una calificación perfecta **A+ en SecurityHeaders.com**.
 3. **Escalabilidad y Costo Cero:** La arquitectura serverless distribuida aprovecha la capa gratuita de Azure for Students con alta tolerancia a fallos y consumo mínimo de recursos.
-
