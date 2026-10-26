@@ -1,3 +1,4 @@
+
 # 🌐 Laboratorio de Sistemas Distribuidos: PokeDex Cloud Deployment & Account Hardening
 
 ![Azure](https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=microsoftazure&logoColor=white)
@@ -10,7 +11,7 @@
 ## 📋 Información General
 
 * **Institución:** Fundación Universitaria Tecnológico Comfenalco
-* **Estudiante:** Joel Mendoza (`jmendoza5771@tecnocomfenalco.edu.co`)
+* **Estudiante:** Joel Mendoza (`joelmendozaa@tecnocomfenalco.edu.co`)
 * **Asignatura:** Sistemas Distribuidos
 * **Proyecto:** Despliegue de Pokédex en la Nube y Hardening de Seguridad
 * **Plataforma Cloud:** Microsoft Azure (Azure for Students / Azure Starter)
@@ -199,7 +200,7 @@ Todos los recursos desplegados deben contar con metadatos clave para trazabilida
 | :--- | :--- | :--- |
 | `Entorno` | `Produccion` | Ambiente operativo de la carga de trabajo. |
 | `Proyecto` | `PokeDex-Cloud` | Nombre del sistema o solución. |
-| `Propietario` | `jmendoza5771@tecnocomfenalco.edu.co` | Correo del responsable técnico. |
+| `Propietario` | `joelmendozaa@tecnocomfenalco.edu.co` | Correo del responsable técnico. |
 | `GestionadoPor` | `GitHub-Actions` | Mecanismo de despliegue y orquestación. |
 | `Asignatura` | `Sistemas-Distribuidos` | Identificador académico. |
 
