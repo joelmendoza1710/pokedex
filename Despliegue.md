@@ -1,4 +1,4 @@
-# 🚀 Guía de Despliegue: PokeDex en Azure Static Web Apps con CI/CD y Hardening de Seguridad
+﻿# 🚀 Guía de Despliegue: PokeDex en Azure Static Web Apps con CI/CD y Hardening de Seguridad
 
 ![Azure Static Web Apps](https://img.shields.io/badge/Azure_Static_Web_Apps-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)
 ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)
@@ -16,9 +16,9 @@
 ---
 
 ## 📌 Enlace de la Aplicación en Producción
-* **URL Pública de Despliegue:** `https://swa-pokedex-prod.azurestaticapps.net` *(o URL generada por Azure SWA al crear el recurso)*
+* **URL Pública de Despliegue:** `https://icy-mushroom-089b3eb10.6.azurestaticapps.net` *(o URL generada por Azure SWA al crear el recurso)*
 * **Repositorio en GitHub:** `https://github.com/joelmendoza1710/pokedex`
-* **Auditoría de Seguridad en Vivo:** [Verificación en SecurityHeaders.com](https://securityheaders.com/?q=https%3A%2F%2Fswa-pokedex-prod.azurestaticapps.net&followRedirects=on)
+* **Auditoría de Seguridad en Vivo:** [Verificación en SecurityHeaders.com](https://securityheaders.com/?q=https%3A%2F%2Ficy-mushroom-089b3eb10.6.azurestaticapps.net&followRedirects=on)
 
 ---
 
@@ -331,7 +331,7 @@ Se ejecutó un **Baseline Security Scan** pasivo y activo contra el endpoint de 
 * Herramienta: OWASP ZAP 2.14 / ZAP Docker Baseline Scan.
 * Comando ejecutado:
   ```bash
-  docker run -t zaproxy/zap-stable zap-baseline.py -t https://swa-pokedex-prod.azurestaticapps.net -r zap-report.html
+  docker run -t zaproxy/zap-stable zap-baseline.py -t https://icy-mushroom-089b3eb10.6.azurestaticapps.net -r zap-report.html
   ```
 * Alcance: Análisis de inyecciones, fuga de encabezados de servidor, políticas de cookies y exposición de secretos.
 
@@ -350,7 +350,7 @@ Se ejecutó un **Baseline Security Scan** pasivo y activo contra el endpoint de 
 ### 3. Auditoría de Transporte Seguro con Qualys SSL Labs
 Se analizó la infraestructura de cifrado y el certificado del servidor mediante la suite **Qualys SSL Labs SSL Server Test**.
 
-* **Enlace de Prueba:** `https://www.ssllabs.com/ssltest/analyze.html?d=swa-pokedex-prod.azurestaticapps.net`
+* **Enlace de Prueba:** `https://www.ssllabs.com/ssltest/analyze.html?d=icy-mushroom-089b3eb10.6.azurestaticapps.net`
 * **Calificación Obtenida:** **A**
 * **Detalles de la Configuración TLS:**
   * **Protocolos Soportados:** TLS 1.3 (preferido) y TLS 1.2. Protocolos obsoletos (SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1) totalmente deshabilitados por Azure.
@@ -385,3 +385,4 @@ El despliegue de la solución **PokeDex** en **Azure Static Web Apps** implement
 1. **Automatización Total:** Cualquier cambio subido al repositorio activa el pipeline de CI/CD que valida, construye y entrega la versión en producción en menos de 2 minutos.
 2. **Seguridad Perimetral Robusta:** La incorporación de `staticwebapp.config.json` protege a los usuarios y asegura una calificación perfecta **A+ en SecurityHeaders.com**.
 3. **Escalabilidad y Costo Cero:** La arquitectura serverless distribuida aprovecha la capa gratuita de Azure for Students con alta tolerancia a fallos y consumo mínimo de recursos.
+
