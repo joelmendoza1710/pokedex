@@ -18,7 +18,7 @@
 ## 📌 Enlace de la Aplicación en Producción
 * **URL Pública de Despliegue:** `https://icy-mushroom-089b3eb10.6.azurestaticapps.net` 
 * **Repositorio en GitHub:** `https://github.com/joelmendoza1710/pokedex`
-* **Auditoría de Seguridad en Vivo:** [Verificación en SecurityHeaders.com](https://securityheaders.com/?q=https%3A%2F%2Fswa-pokedex-prod.azurestaticapps.net&followRedirects=on)
+* **Auditoría de Seguridad en Vivo:** [Verificación en SecurityHeaders.com]([https://securityheaders.com/?q=https%3A%2F%2Fswa-pokedex-prod.azurestaticapps.net&followRedirects=on](https://securityheaders.com/?q=https%3A%2F%2Ficy-mushroom-089b3eb10.6.azurestaticapps.net&followRedirects=on))
 
 ---
 
