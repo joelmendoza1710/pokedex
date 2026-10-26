@@ -242,7 +242,7 @@ En Azure Static Web Apps, estas directivas se configuran mediante el archivo [`s
     "X-XSS-Protection": "1; mode=block",
     "Referrer-Policy": "strict-origin-when-cross-origin",
     "Permissions-Policy": "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()",
-    "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://raw.githubusercontent.com https://assets.pokemon.com https://pokeapi.co https://keilermora.github.io; connect-src 'self' https://pokeapi.co https://beta.pokeapi.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
+    "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://raw.githubusercontent.com https://assets.pokemon.com https://pokeapi.co https://keilermora.github.io; connect-src 'self' https://pokeapi.co https://beta.pokeapi.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
   },
   "mimeTypes": {
     ".json": "application/json"
@@ -269,7 +269,7 @@ En Azure Static Web Apps, estas directivas se configuran mediante el archivo [`s
 
 #### Desglose de Directivas en `Content-Security-Policy`:
 * `default-src 'self'`: Por defecto, ningún recurso puede cargarse desde orígenes externos no especificados.
-* `script-src 'self' 'unsafe-inline'`: Permite la ejecución de los paquetes compilados de Angular.
+* `script-src 'self'`: Permite la ejecución únicamente de los paquetes compilados y empaquetados de Angular (sin permitir inyección de scripts inline).
 * `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`: Permite los estilos de Angular emulados y fuentes de Google Fonts.
 * `font-src 'self' data: https://fonts.gstatic.com`: Permite iconos de FontAwesome y fuentes descargadas en memoria o desde Google Fonts.
 * `img-src 'self' data: https://raw.githubusercontent.com https://assets.pokemon.com https://pokeapi.co https://keilermora.github.io`: Autoriza la carga de sprites oficiales de Pokémon y avatares desde las CDN autorizadas de Pokémon Company y GitHub.
